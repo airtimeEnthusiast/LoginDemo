@@ -1,31 +1,32 @@
 //
-//  ItemListView.swift
+//  UserListView.swift
 //  LoginDemo
 //
 //  Created by Austin Wright on 6/4/25.
 //
+
 import SwiftUI
 
-// MARK: List of Items
-struct ItemListView: View {
-    @StateObject private var vm: ItemListViewModel = ItemListViewModel()
+// MARK: List of Users
+struct UsersListView: View {
+    @StateObject private var vm: UsersListViewModel = UsersListViewModel()
     @State private var searchText: String = ""
 
     var body: some View {
         NavigationSplitView {
             List {
-                if let model = vm.selectedModel { // Show searched entry
+                if let model = vm.selectedModel {
                     NavigationLink{
-                        ItemDetailView(item: model)
+                        UsersDetailView(users: model)
                     }label:{
-                        Text(model.title)
+                        Text(model.name ?? "No name")
                     }
-                }else{ // Show entire list if the list isn't being searched
+                } else{ // Show entire list if the list isn't being searched
                     ForEach(vm.models, id: \.self){ model in
                         NavigationLink{
-                            ItemDetailView(item: model)
+                            UsersDetailView(users: model)
                         }label:{
-                            Text(model.title)
+                            Text(model.name ?? "No Name")
                         }
                     }
                 }
@@ -35,16 +36,16 @@ struct ItemListView: View {
                 }
             }
             .searchable(text: $searchText) // add searchable proporty
-            .submitLabel(.search)   // add search button to the keyboard
+            .submitLabel(.search) // add search button to the keyboard
             .onSubmit(of: .search) {
                 performSearch() // add search button to the keyboard
             }
-            .onChange(of: searchText) { newValue in
-                if newValue.isEmpty {    // make the selected model nil if there is no searchtext
+            .onChange(of: searchText) { newValue in // make the selected model nil if there is no searchtext
+                if newValue.isEmpty {
                     vm.selectedModel = nil
                 }
             }
-            .refreshable { // make the list refresh the model with a fetch of data
+            .refreshable {
                 vm.fetchModels()
             }
             .navigationTitle(Text("Items"))
@@ -63,9 +64,10 @@ struct ItemListView: View {
         print("Searching for: \(searchText)")
         let trimmed = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         if let id = Int(trimmed) {
-            vm.fetchModel(id: id)   // Call API Service 
+            vm.fetchModel(id: id)   // Call API Service
         } else {
             vm.selectedModel = nil
         }
     }
 }
+

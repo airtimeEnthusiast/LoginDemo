@@ -29,6 +29,7 @@ struct SettingsView: View {
         }
     }
     
+    //MARK: Sign out of the app and delete the login token.
     func signOut() {
         do{
             try keychain.delete(authTokenName)

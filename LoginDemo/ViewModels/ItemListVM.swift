@@ -7,7 +7,7 @@
 
 import Foundation
 
-//MARK: Generic List View Model that contains the
+//MARK: Generic List View Model that contains the fetch calls for items
 class ItemListViewModel: ObservableObject{
     @Published var models : [Item] = []
     @Published var comments : [Comments] = []
@@ -21,7 +21,7 @@ class ItemListViewModel: ObservableObject{
         Task{
             // If the login token exists
             if let token = try keychain.query(authTokenName) {
-                print("Found token when fetching items")
+                print("Found token when fetching users")
                 let result = try await service.getItems(token: token)
                 DispatchQueue.main.async {
                     self.models = result
