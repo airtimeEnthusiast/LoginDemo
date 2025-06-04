@@ -71,5 +71,18 @@ final class LoginDemoTests: XCTestCase {
             XCTFail("Item retrieval failed with error: \(error)")
         }
     }
+    
+    //MARK: Test sucesful retrieval of item comments by ID
+    func testGetItem_By_ID_Comments_Success() async throws {
+        let jwtToken = "fake-jwt-token"
+        let id = 2
+        do {
+            let response = try await service.getItems_Comments(token: jwtToken, id: id)
+            XCTAssertGreaterThan(response.count, 2, "Expected to retrieve more than 2 items")
+        } catch {
+            XCTFail("Item retrieval failed with error: \(error)")
+        }
+    }
+
 
 }

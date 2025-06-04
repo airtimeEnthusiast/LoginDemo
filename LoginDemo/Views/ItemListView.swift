@@ -18,7 +18,15 @@ struct ItemListView: View {
                         Text(model.title)
                     }
                 }
-            }.onAppear(perform: populateList)
+            }.onAppear(){
+                if vm.models.isEmpty{
+                    vm.fetchModels()
+                }
+            }
+            .refreshable {
+                vm.fetchModels()
+            }
+            .navigationTitle(Text("Items"))
         } detail: {
             Text("Select a row")
         }

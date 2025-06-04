@@ -21,9 +21,11 @@ class ItemListViewModel: ObservableObject{
             // If the login token exists
             if let token = try keychain.query(authTokenName) {
                 print("Found token when fetching items")
-                models = try await service.getItems(token: authTokenName)
+                let result = try await service.getItems(token: token)
+                DispatchQueue.main.async {
+                    self.models = result
+                }
             }
-            print("Found \(models.count) items")
         }
     }
     

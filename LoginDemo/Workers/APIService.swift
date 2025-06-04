@@ -60,6 +60,7 @@ class APIService{
         // Decode the response
         do {
             let listResponse = try JSONDecoder().decode([Item].self, from: data)
+            print(listResponse)
             return listResponse
         } catch {
             throw error // rethrow decoding error
@@ -129,7 +130,6 @@ class APIService{
 
         // Perform the request
         let (data, _) = try await URLSession.shared.data(for: request)
-
 
         // Decode the response
         do {
