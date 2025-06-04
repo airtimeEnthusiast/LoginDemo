@@ -5,7 +5,7 @@
 //  Created by Austin Wright on 6/4/25.
 //
 
-struct Item: ListProtocol{
+struct Item: ModelProtocol{
     let id: Int
     let title: String
     let summary: String

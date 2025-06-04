@@ -30,6 +30,5 @@ http://localhost:3000
 ### Assumptions
 - The iOS App utlized standard MVVM achitecuture where all views that handle data flow contain functions and variables to change the state of the view.
 - The API server returns a fake JWT upon a sucessful POST of the credentials from the login screen.
-- The list implements the strategy pattern to reduce code base complexity.
 - It is optimized for the API dataset and may need refinement to scale.
 

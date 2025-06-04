@@ -4,7 +4,11 @@
 //
 //  Created by Austin Wright on 6/4/25.
 //
-//MARK: Parent of the JWT token
+
+//MARK: Authentication Token Name
+let authTokenName = "authToken"
+
+//MARK: Parent of the Authentication token
 struct LoginResponse: Codable {
     let loginToken: Token
 }

@@ -6,13 +6,13 @@
 //
 
 //MARK: User is a member of the Token class (JWT Token)
-struct User: ListProtocol {
+struct User: ModelProtocol {
     let id: Int
     let name: String
 }
 
 //MARK: Consuming the member of the user's list
-struct Users: Codable, Hashable, Identifiable, ListProtocol {
+struct Users: ModelProtocol {
     let id: Int
     let name: String?
     let email: String
