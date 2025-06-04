@@ -11,7 +11,21 @@ import SwiftUI
 // MARK: Enviromental state control to determine whether the user is logged in.
 class Authenticator:ObservableObject {
     @Published var isAuthenticated:Bool = false
+    private var keychain = KeyChainHandler()
     
+    init() {
+        self.hasForAuthentication("authToken")
+    }
+    
+    //MARK: Check for a login token
+    func hasForAuthentication(_ key: String){
+        let response = try? keychain.query(key)
+        if response != nil {
+            self.isAuthenticated = true
+        }
+    }
+    
+    //MARK: Update authentication state dynamically during log in or sign out
     func updateAuthenticationState(_ isAuthenticated:Bool) {
         DispatchQueue.main.async {
             withAnimation {

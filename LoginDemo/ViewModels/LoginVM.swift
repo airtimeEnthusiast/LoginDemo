@@ -17,6 +17,9 @@ class LoginViewModel: ObservableObject {
     // Instance of Authenticator
     private var auth: Authenticator
     
+    //Instance of keychain handler
+    private var keychain: KeyChainHandler = KeyChainHandler()
+    
     //MARK: Inject authentor into the VM
     init(auth: Authenticator) {
         self.auth = auth
@@ -32,21 +35,11 @@ class LoginViewModel: ObservableObject {
             Task{
                 do{
                     // Request a login token
-                    print("Entered Credentials: \(username), \(password)")
-                    let response = try await apiService.postLoginToken(credentials: Credentials(username: username, password: password))
+                    //print("Entered Credentials: \(username), \(password)")
+                    let response = try await apiService.postLoginToken(credentials: Credentials(username: username, password: password)) // Call API Service
                     print("Response Token: \(response.loginToken.token)")
-                    auth.updateAuthenticationState(true)
-                    // Check for a valid token response
-                    if response.loginToken == nil{
-                        if response.loginToken.token == "fake-jwt-token"
-                        {
-                            print("Sucessfully Logged In")
-                            return
-                        }
-                        else{
-                            print("Invalid Credentials or Token not received \(response.loginToken.token)")
-                        }
-                    }
+                    auth.updateAuthenticationState(true)    // Adjust the authentication state
+                    try await keychain.save(response.loginToken.token, forKey: "authToken")
                 } catch {
                     print(error.localizedDescription)
                 }

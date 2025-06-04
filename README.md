@@ -32,3 +32,4 @@ http://localhost:3000
 - The API server returns a fake JWT upon a sucessful POST of the credentials from the login screen.
 - The list implements the strategy pattern to reduce code base complexity.
 - It is optimized for the API dataset and may need refinement to scale.
+
