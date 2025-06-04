@@ -30,7 +30,7 @@ class APIService{
         request.httpBody = try JSONEncoder().encode(body)
 
         // Perform the request
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, _) = try await URLSession.shared.data(for: request)
 
 
         // Decode the response
@@ -55,7 +55,7 @@ class APIService{
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         // Perform the request
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, _) = try await URLSession.shared.data(for: request)
 
         // Decode the response
         do {
@@ -80,7 +80,7 @@ class APIService{
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         // Perform the request
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, _) = try await URLSession.shared.data(for: request)
 
         // Decode the response
         do {
@@ -104,7 +104,7 @@ class APIService{
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         // Perform the request
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, _) = try await URLSession.shared.data(for: request)
 
         // Decode the response
         do {
@@ -128,7 +128,7 @@ class APIService{
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         // Perform the request
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, _) = try await URLSession.shared.data(for: request)
 
 
         // Decode the response
@@ -153,7 +153,7 @@ class APIService{
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
         // Perform the request
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, _) = try await URLSession.shared.data(for: request)
 
 
         // Decode the response

@@ -29,46 +29,9 @@
 		893C8E3A2DF0A29F00FDA3B6 /* LoginDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoginDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		893C8E6E2DF0B3B700FDA3B6 /* Exceptions for "LoginDemo" folder in "LoginDemoTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				ContentView.swift,
-				Models/Comments.swift,
-				Models/Credentials.swift,
-				Models/EndPoints.swift,
-				Models/Item.swift,
-				Models/ListProtocol.swift,
-				Models/Token.swift,
-				Models/Users.swift,
-				Workers/APIService.swift,
-			);
-			target = 893C8E2F2DF0A29F00FDA3B6 /* LoginDemoTests */;
-		};
-		893C8E6F2DF0B3B700FDA3B6 /* Exceptions for "LoginDemo" folder in "LoginDemoUITests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				ContentView.swift,
-				Models/Comments.swift,
-				Models/Credentials.swift,
-				Models/EndPoints.swift,
-				Models/Item.swift,
-				Models/ListProtocol.swift,
-				Models/Token.swift,
-				Models/Users.swift,
-				Workers/APIService.swift,
-			);
-			target = 893C8E392DF0A29F00FDA3B6 /* LoginDemoUITests */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		893C8E242DF0A29C00FDA3B6 /* LoginDemo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				893C8E6E2DF0B3B700FDA3B6 /* Exceptions for "LoginDemo" folder in "LoginDemoTests" target */,
-				893C8E6F2DF0B3B700FDA3B6 /* Exceptions for "LoginDemo" folder in "LoginDemoUITests" target */,
-			);
 			path = LoginDemo;
 			sourceTree = "<group>";
 		};
@@ -168,6 +131,7 @@
 				893C8E322DF0A29F00FDA3B6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				893C8E242DF0A29C00FDA3B6 /* LoginDemo */,
 				893C8E332DF0A29F00FDA3B6 /* LoginDemoTests */,
 			);
 			name = LoginDemoTests;
@@ -191,6 +155,7 @@
 				893C8E3C2DF0A29F00FDA3B6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				893C8E242DF0A29C00FDA3B6 /* LoginDemo */,
 				893C8E3D2DF0A29F00FDA3B6 /* LoginDemoUITests */,
 			);
 			name = LoginDemoUITests;

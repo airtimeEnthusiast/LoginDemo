@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var auth: Authenticator
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        //Switch to the main app views when the user is logged in
+        if auth.isAuthenticated {
+            Text("Logged in!")
         }
-        .padding()
+        else{
+            LoginView(auth: auth)
+        }
     }
 }
 
