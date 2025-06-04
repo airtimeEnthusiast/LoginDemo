@@ -12,7 +12,7 @@ struct ContentView: View {
     var body: some View {
         //Switch to the main app views when the user is logged in
         if auth.isAuthenticated {
-            Text("Logged in!")
+            TabCollectionViews(auth: auth)
         }
         else{
             LoginView(auth: auth)

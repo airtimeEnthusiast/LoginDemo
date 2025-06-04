@@ -39,7 +39,7 @@ class LoginViewModel: ObservableObject {
                     let response = try await apiService.postLoginToken(credentials: Credentials(username: username, password: password)) // Call API Service
                     print("Response Token: \(response.loginToken.token)")
                     auth.updateAuthenticationState(true)    // Adjust the authentication state
-                    try await keychain.save(response.loginToken.token, forKey: "authToken")
+                    try await keychain.save(response.loginToken.token, forKey: authTokenName)
                 } catch {
                     print(error.localizedDescription)
                 }

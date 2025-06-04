@@ -19,7 +19,7 @@ struct ItemListView: View {
                     }
                 }
             }.onAppear(perform: populateList)
-        }detail: {
+        } detail: {
             Text("Select a row")
         }
     }

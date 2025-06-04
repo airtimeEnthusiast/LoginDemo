@@ -18,11 +18,22 @@ class ItemListViewModel: ObservableObject{
     //MARK: Fetch Items from the API Service
     func fetchModels(){
         Task{
-            // If token exists
+            // If the login token exists
             if let token = try keychain.query(authTokenName) {
-                
+                print("Found token when fetching items")
+                models = try await service.getItems(token: authTokenName)
             }
-            models = try await service.getItems(token: authTokenName)
+            print("Found \(models.count) items")
+        }
+    }
+    
+    //MARK: Fetch Items by ID from the API Service
+    func fetchModel(id: Int){
+        Task{
+            // If the login token exists
+            if let token = try keychain.query(authTokenName) {
+                selectedModel = try await service.getItems(token: token, id: id)
+            }
         }
     }
     
