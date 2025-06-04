@@ -13,7 +13,7 @@ struct ItemListView: View {
             List {
                 ForEach(vm.models, id: \.self){ model in
                     NavigationLink{
-                        ItemDetailView()
+                        ItemDetailView(item: model)
                     }label:{
                         Text(model.title)
                     }

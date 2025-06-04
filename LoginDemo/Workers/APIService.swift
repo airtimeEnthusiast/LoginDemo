@@ -60,7 +60,6 @@ class APIService{
         // Decode the response
         do {
             let listResponse = try JSONDecoder().decode([Item].self, from: data)
-            print(listResponse)
             return listResponse
         } catch {
             throw error // rethrow decoding error

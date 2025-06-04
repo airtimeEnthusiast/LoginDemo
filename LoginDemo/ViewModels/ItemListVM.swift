@@ -10,6 +10,7 @@ import Foundation
 //MARK: Generic List View Model that contains the
 class ItemListViewModel: ObservableObject{
     @Published var models : [Item] = []
+    @Published var comments : [Comments] = []
     @Published var selectedModel: Item?
     
     private var service: APIService = APIService()
@@ -38,5 +39,20 @@ class ItemListViewModel: ObservableObject{
             }
         }
     }
+    
+    //MARK: Fetch Comments from the API Service
+    func fetchModelsComments(id: Int){
+        Task{
+            // If the login token exists
+            if let token = try keychain.query(authTokenName) {
+                print("Found token when fetching items")
+                let result = try await service.getItems_Comments(token: token, id: id)
+                DispatchQueue.main.async {
+                    self.comments = result
+                }
+            }
+        }
+    }
+    
     
 }

@@ -6,7 +6,7 @@
 //
 
 //MARK: Consuming the Comments GET API Endpoint
-struct Comments: Codable, Identifiable {
+struct Comments: ModelProtocol {
     let id: Int
     let author: String
     let message: String
