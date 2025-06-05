@@ -26,7 +26,7 @@ npm start
 
 ```
 http://localhost:3000
-
+```
 #### 2. Open .xcodeproj 
 
 ### Assumptions
