@@ -15,6 +15,7 @@ struct UsersDetailView: View {
     var body: some View {
         ScrollView{
             VStack{
+                // Profile image
                 KFImage(URL(string: users.avatar ?? ""))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -26,16 +27,19 @@ struct UsersDetailView: View {
                     .cornerRadius(50)
                 VStack{
                     Divider()
+                    // Name field
                     HStack{
                         Text(users.name ?? "No name").bold()
                     }.padding(.horizontal)
                     Divider()
+                    // ID field
                     HStack{
                         Text("ID")
                         Spacer()
                         Text("\(users.id)")
                     }.padding(.horizontal)
                     Divider()
+                    // Email field
                     HStack{
                         Text("Email")
                         Spacer()

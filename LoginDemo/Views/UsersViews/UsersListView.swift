@@ -31,9 +31,7 @@ struct UsersListView: View {
                     }
                 }
             }.onAppear{ // Fetch models upon view load
-                if vm.models.isEmpty{
-                    vm.fetchModels()
-                }
+                populateList()
             }
             .searchable(text: $searchText) // add searchable proporty
             .submitLabel(.search) // add search button to the keyboard
@@ -46,9 +44,9 @@ struct UsersListView: View {
                 }
             }
             .refreshable {
-                vm.fetchModels()
+                populateList()
             }
-            .navigationTitle(Text("Items"))
+            .navigationTitle(Text("Users"))
         } detail: {
             Text("Select a row")
         }
@@ -56,7 +54,9 @@ struct UsersListView: View {
     
     //MARK: handle loading of data models to the list
     func populateList(){
-        vm.fetchModels()
+        if vm.models.isEmpty{
+            vm.fetchModels()
+        }
     }
     
     //MARK: Search for an item by ID

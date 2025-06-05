@@ -14,16 +14,26 @@ class UsersListViewModel: ObservableObject{
     
     private var service: APIService = APIService()
     private var keychain: KeyChainHandler = KeyChainHandler()
+    private var fileManager: FileManagerHandler = FileManagerHandler()
     
     //MARK: Fetch Items from the API Service
     func fetchModels(){
         Task{
-            // If the login token exists
-            if let token = try keychain.query(authTokenName) {
-                print("Found token when fetching items")
-                let result = try await service.getUsers(token: token)
+            //If the users exists in the FileManager
+            let cachedModels = fileManager.loadUsers()
+            if !cachedModels.isEmpty {
                 DispatchQueue.main.async {
-                    self.models = result
+                    self.models = cachedModels
+                }
+            } else{
+                // If the login token exists
+                if let token = try keychain.query(authTokenName) {
+                    print("Found token when fetching items")
+                    let result = try await service.getUsers(token: token)
+                    DispatchQueue.main.async {
+                        self.models = result
+                        self.fileManager.saveUsers(self.models)
+                    }
                 }
             }
         }

@@ -20,17 +20,20 @@ struct ItemDetailView: View {
                     .tracking(4)
                 VStack{
                     Divider()
+                    // ID field
                     HStack{
                         Text("ID")
                         Spacer()
                         Text("\(item.id)")
                     }.padding(.horizontal)
                     Divider()
+                    // Title field
                     HStack{
                         Text("Title")
                         Spacer()
                         Text("\(item.title)")
                     }.padding(.horizontal)
+                    // User field
                     Divider()
                     HStack{
                         Text("User ID")
@@ -38,12 +41,14 @@ struct ItemDetailView: View {
                         Text("\(item.userId)")
                     }.padding(.horizontal)
                     Divider()
+                    // Summary field
                     HStack{
                         Text("Summary")
                         Spacer()
                         Text("\(item.summary)")
                     }.padding(.horizontal)
                     Divider()
+                    // Image
                     KFImage(URL(string: item.image))
                         .resizable()
                         .scaledToFit()
