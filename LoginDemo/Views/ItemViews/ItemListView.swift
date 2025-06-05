@@ -20,7 +20,10 @@ struct ItemListView: View {
                     }label:{
                         Text(model.title)
                     }
-                }else{ // Show entire list if the list isn't being searched
+                }else if(vm.models.isEmpty){
+                    ProgressView()
+                }
+                else{ // Show entire list if the list isn't being searched
                     ForEach(vm.models, id: \.self){ model in
                         NavigationLink{
                             ItemDetailView(item: model)

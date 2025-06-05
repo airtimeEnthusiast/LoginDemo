@@ -48,6 +48,18 @@ struct ItemDetailView: View {
                         Text("\(item.summary)")
                     }.padding(.horizontal)
                     Divider()
+                    if vm.author == nil{
+                        ProgressView()
+                    }
+                    else{
+                        NavigationLink{
+                            UsersDetailView(users: vm.author!)
+                        }label:{
+                            HStack{
+                                Text("Author Details")
+                            }
+                        }
+                    }
                     // Image
                     KFImage(URL(string: item.image))
                         .resizable()
@@ -57,6 +69,10 @@ struct ItemDetailView: View {
                 VStack{
                     ItemCommentsView(item: item)
                 }
+            }
+        }.onAppear{
+            withAnimation{
+                vm.getAuthor(id: item.userId)
             }
         }
     }

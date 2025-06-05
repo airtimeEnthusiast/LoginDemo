@@ -18,7 +18,7 @@ class ItemListViewModel: ObservableObject{
     private var fileManager: FileManagerHandler = FileManagerHandler()
     
     //MARK: Fetch Items from the API Service
-    func fetchModels(){
+    func fetchModels(retryAttempts: Int = 2){
         Task{
             //If the users exists in the FileManager
             let cachedModels = fileManager.loadItems()
@@ -29,11 +29,18 @@ class ItemListViewModel: ObservableObject{
             } else{
                 // If the login token exists
                 if let token = try keychain.query(authTokenName) {
-                    print("Found token when fetching users")
-                    let result = try await service.getItems(token: token)
-                    DispatchQueue.main.async {
-                        self.models = result
-                        self.fileManager.saveItems(self.models)
+                    do{
+                        print("Found token when fetching users")
+                        let result = try await service.getItems(token: token)
+                        
+                        DispatchQueue.main.async {
+                            self.models = result
+                            self.fileManager.saveItems(self.models)
+                        }
+                    } catch {//  Handle fetch errors
+                        print("Failed to load item models: \(error)")
+                        try? await Task.sleep(1)
+                        fetchModels(retryAttempts: retryAttempts - 1) // Attempt to make another request
                     }
                 }
             }
@@ -41,24 +48,40 @@ class ItemListViewModel: ObservableObject{
     }
     
     //MARK: Fetch Items by ID from the API Service
-    func fetchModel(id: Int){
+    func fetchModel(id: Int, retryAttempts: Int = 2){
         Task{
             // If the login token exists
             if let token = try keychain.query(authTokenName) {
-                selectedModel = try await service.getItems(token: token, id: id)
+                do {
+                    selectedModel = try await service.getItems(token: token, id: id)
+                }catch { // Handle fetch errors
+                    if retryAttempts == 0 {
+                        print("Failed to load item model: \(error)")
+                        try? await Task.sleep(1)
+                        fetchModel(id: id, retryAttempts: retryAttempts - 1) // Attempt to make another request
+                    }
+                }
             }
         }
     }
     
     //MARK: Fetch Comments from the API Service
-    func fetchModelsComments(id: Int){
+    func fetchModelsComments(id: Int, retryAttempts: Int = 2){
         Task{
             // If the login token exists
             if let token = try keychain.query(authTokenName) {
                 print("Found token when fetching items")
-                let result = try await service.getItems_Comments(token: token, id: id)
-                DispatchQueue.main.async {
-                    self.comments = result
+                do {
+                    let result = try await service.getItems_Comments(token: token, id: id)
+                    DispatchQueue.main.async {
+                        self.comments = result
+                    }
+                }catch { // Handle fetch errors
+                    if retryAttempts == 0 {
+                        print("Failed to load item comments: \(error)")
+                        try? await Task.sleep(1)
+                        fetchModelsComments(id:id, retryAttempts: retryAttempts - 1) // Attempt to make another request
+                    }
                 }
             }
         }

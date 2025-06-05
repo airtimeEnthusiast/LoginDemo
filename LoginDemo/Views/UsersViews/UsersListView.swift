@@ -21,7 +21,10 @@ struct UsersListView: View {
                     }label:{
                         Text(model.name ?? "No name")
                     }
-                } else{ // Show entire list if the list isn't being searched
+                } else if(vm.models.isEmpty){
+                    ProgressView()
+                }
+                else{ // Show entire list if the list isn't being searched
                     ForEach(vm.models, id: \.self){ model in
                         NavigationLink{
                             UsersDetailView(users: model)

@@ -17,7 +17,7 @@ class UsersListViewModel: ObservableObject{
     private var fileManager: FileManagerHandler = FileManagerHandler()
     
     //MARK: Fetch Items from the API Service
-    func fetchModels(){
+    func fetchModels(retryAttempts: Int = 3){
         Task{
             //If the users exists in the FileManager
             let cachedModels = fileManager.loadUsers()
@@ -28,11 +28,19 @@ class UsersListViewModel: ObservableObject{
             } else{
                 // If the login token exists
                 if let token = try keychain.query(authTokenName) {
-                    print("Found token when fetching items")
-                    let result = try await service.getUsers(token: token)
-                    DispatchQueue.main.async {
-                        self.models = result
-                        self.fileManager.saveUsers(self.models)
+                    do{
+                        print("Found token when fetching items")
+                        let result = try await service.getUsers(token: token)
+                        DispatchQueue.main.async {
+                            self.models = result
+                            self.fileManager.saveUsers(self.models)
+                        }
+                    } catch {
+                        if retryAttempts == 0 {
+                            print("Failed to load user models: \(error)")
+                            try? await Task.sleep(1)
+                            fetchModels(retryAttempts: retryAttempts - 1) // Attempt to make another request
+                        }
                     }
                 }
             }
@@ -40,11 +48,19 @@ class UsersListViewModel: ObservableObject{
     }
     
     //MARK: Fetch Items by ID from the API Service
-    func fetchModel(id: Int){
+    func fetchModel(id: Int, retryAttempts: Int = 3){
         Task{
             // If the login token exists
             if let token = try keychain.query(authTokenName) {
-                selectedModel = try await service.getUsers(token: token, id: id)
+                do{
+                    selectedModel = try await service.getUsers(token: token, id: id)
+                } catch {
+                    if retryAttempts == 0 {
+                        print("Failed to load user model: \(error)")
+                        try? await Task.sleep(1)
+                        fetchModel(id: id, retryAttempts: retryAttempts - 1) // Attempt to make another request
+                    }
+                }
             }
         }
     }
