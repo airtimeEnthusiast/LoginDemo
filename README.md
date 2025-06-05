@@ -26,7 +26,7 @@ npm start
 
 ```
 http://localhost:3000
-
+```
 #### 2. Open .xcodeproj 
 
 ### Assumptions
@@ -42,15 +42,16 @@ http://localhost:3000
 - Create more UI tests to create better code coverage and edge cases.
 - Improve error handling for more edge cases such as having invalid credentials
 - Refactor some views such as the detail views into smaller components to enhance readability.
-- Enhance the visual design, as many elements were originally created with a purely functional focus.
+- Enhance the visual design, as many elements were created with a purely functional focus.
 - Improve accessibility by adding VoiceOver support and better tab indexing.
-- Improve security by encrypting credential payloads and tokens between the app and api.
-- Add encryption to the file manager.
+- Improve security by encrypting credential payloads and tokens between the app and API.
+- Add encryption to the file manager and credentials.
 
 
 ### Trade-Offs
-- Local caching is fine for data that does not change often but it can create version conflicts if not updated regulaly
+- Local caching is fine for data that does not change often but it can create version conflicts if not updated regularly
 - While strategy pattern might improve code reusability it can make it harder to trace and debug.
+- Creating more UI tests might slow down production if UI changes during the development stages.
 
 
 
