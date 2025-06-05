@@ -13,8 +13,6 @@ This is a small mobile app that makes RESTFUL API requests and simulates a login
 ## 🚀 How To Run
 
 ### 1. Run the Mock API Server
-
-## 🔧 Requirements
 	
 1.	Start the server:
 
@@ -28,6 +26,7 @@ npm start
 http://localhost:3000
 ```
 #### 2. Open .xcodeproj 
+1. 	Run LoginDemo from a Mobile phone or iOS Simulator.
 
 ### Assumptions
 - The iOS App utilized standard MVVM architecture where all views that handle data flow contain functions and variables to change the state of the view.
