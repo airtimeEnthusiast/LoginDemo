@@ -26,7 +26,7 @@ npm start
 http://localhost:3000
 ```
 #### 2. Open .xcodeproj 
-1. 	Run LoginDemo from a Mobile phone or iOS Simulator.
+1. 	Run LoginDemo from a mobile phone or iOS Simulator.
 
 ### Assumptions
 - The iOS App utilized standard MVVM architecture where all views that handle data flow contain functions and variables to change the state of the view.
