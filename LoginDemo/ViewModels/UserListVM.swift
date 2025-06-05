@@ -36,7 +36,7 @@ class UsersListViewModel: ObservableObject{
                             self.fileManager.saveUsers(self.models)
                         }
                     } catch {
-                        if retryAttempts == 0 {
+                        if retryAttempts > 0 {
                             print("Failed to load user models: \(error)")
                             try? await Task.sleep(1)
                             fetchModels(retryAttempts: retryAttempts - 1) // Attempt to make another request
@@ -55,7 +55,7 @@ class UsersListViewModel: ObservableObject{
                 do{
                     selectedModel = try await service.getUsers(token: token, id: id)
                 } catch {
-                    if retryAttempts == 0 {
+                    if retryAttempts > 0 {
                         print("Failed to load user model: \(error)")
                         try? await Task.sleep(1)
                         fetchModel(id: id, retryAttempts: retryAttempts - 1) // Attempt to make another request

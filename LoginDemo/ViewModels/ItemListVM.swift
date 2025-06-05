@@ -39,8 +39,10 @@ class ItemListViewModel: ObservableObject{
                         }
                     } catch {//  Handle fetch errors
                         print("Failed to load item models: \(error)")
-                        try? await Task.sleep(1)
-                        fetchModels(retryAttempts: retryAttempts - 1) // Attempt to make another request
+                        if retryAttempts > 0 {
+                            try? await Task.sleep(1)
+                            fetchModels(retryAttempts: retryAttempts - 1) // Attempt to make another request
+                        }
                     }
                 }
             }
@@ -55,7 +57,7 @@ class ItemListViewModel: ObservableObject{
                 do {
                     selectedModel = try await service.getItems(token: token, id: id)
                 }catch { // Handle fetch errors
-                    if retryAttempts == 0 {
+                    if retryAttempts > 0 {
                         print("Failed to load item model: \(error)")
                         try? await Task.sleep(1)
                         fetchModel(id: id, retryAttempts: retryAttempts - 1) // Attempt to make another request
@@ -77,7 +79,7 @@ class ItemListViewModel: ObservableObject{
                         self.comments = result
                     }
                 }catch { // Handle fetch errors
-                    if retryAttempts == 0 {
+                    if retryAttempts > 0 {
                         print("Failed to load item comments: \(error)")
                         try? await Task.sleep(1)
                         fetchModelsComments(id:id, retryAttempts: retryAttempts - 1) // Attempt to make another request

@@ -48,10 +48,11 @@ struct ItemDetailView: View {
                         Text("\(item.summary)")
                     }.padding(.horizontal)
                     Divider()
+                    // If author has not been received, show progress view
                     if vm.author == nil{
                         ProgressView()
                     }
-                    else{
+                    else{ // Show navigation link to authors page
                         NavigationLink{
                             UsersDetailView(users: vm.author!)
                         }label:{
@@ -70,10 +71,14 @@ struct ItemDetailView: View {
                     ItemCommentsView(item: item)
                 }
             }
-        }.onAppear{
+        }.onAppear{ // Fetch author of item
             withAnimation{
                 vm.getAuthor(id: item.userId)
             }
+        }
+        .refreshable {
+            vm.getAuthor(id: item.userId)
+            vm.loadComments(id: item.id)
         }
     }
 }

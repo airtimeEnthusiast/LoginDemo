@@ -46,7 +46,7 @@ class ItemDetailViewModel: ObservableObject {
     }
     
     //MARK: Retrieve author
-    func getAuthor(id itemId: Int){
+    func getAuthor(id itemId: Int, retryAttempts: Int = 2){
         // Handle async work concurrently
         Task {
             do {
@@ -61,6 +61,10 @@ class ItemDetailViewModel: ObservableObject {
                 }
             } catch { // Catch general errors when loading comments
                 print("Failed to load comments: \(error)")
+                if retryAttempts > 0 {
+                    print("Retrying fetch")
+                    getAuthor(id: itemId, retryAttempts: retryAttempts - 1)
+                }
             }
         }
     }
