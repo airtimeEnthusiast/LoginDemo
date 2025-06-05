@@ -46,10 +46,12 @@ http://localhost:3000
 - Improve accessibility by adding VoiceOver support and better tab indexing.
 - Improve security by encrypting credential payloads and tokens between the app and api.
 - Add encryption to the file manager.
+- Improve data fetching when server errors occur.
+- Add login error messages.
 
 
 ### Trade-Offs
-- Local caching is fine for data that does not change often but it can create version conflicts if not updated regulaly
+- Local caching is fine for data that does not change often but it can create version conflicts if not updated regularly.
 - While strategy pattern might improve code reusability it can make it harder to trace and debug.
 
 
